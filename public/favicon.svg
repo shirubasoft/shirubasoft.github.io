@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="silver-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background: Dark Tech Box -->
+  <rect x="16" y="16" width="480" height="480" rx="80" ry="80" fill="#111111" stroke="url(#silver-gradient)" stroke-width="10"/>
+  
+  <!-- Katakana Shi -->
+  <g transform="translate(64, 68) scale(0.8)" fill="url(#silver-gradient)" filter="url(#glow)">
+    <!-- Top Stroke -->
+    <path d="M130 100 Q 150 120 130 140 L 110 160 Q 90 140 110 120 Z" />
+    
+    <!-- Middle Stroke -->
+    <path d="M130 220 Q 150 240 130 260 L 110 280 Q 90 260 110 240 Z" />
+    
+    <!-- Bottom Swoosh -->
+    <path d="M120 380 Q 250 380 380 100 L 340 90 Q 220 320 100 320 Z" />
+  </g>
+</svg>
