@@ -12,19 +12,15 @@
       </feMerge>
     </filter>
   </defs>
-  
-  <!-- Background: Dark Tech Box -->
+
   <rect x="16" y="16" width="480" height="480" rx="80" ry="80" fill="#111111" stroke="url(#silver-gradient)" stroke-width="10"/>
-  
-  <!-- Katakana Shi -->
+
   <g transform="translate(64, 68) scale(0.8)" fill="url(#silver-gradient)" filter="url(#glow)">
-    <!-- Top Stroke -->
-    <path d="M130 100 Q 150 120 130 140 L 110 160 Q 90 140 110 120 Z" />
-    
-    <!-- Middle Stroke -->
-    <path d="M130 220 Q 150 240 130 260 L 110 280 Q 90 260 110 240 Z" />
-    
-    <!-- Bottom Swoosh -->
+
+    <path d="M110 100 Q 90 120 110 140 L 130 160 Q 150 140 130 120 Z" />
+
+    <path d="M110 220 Q 90 240 110 260 L 130 280 Q 150 260 130 240 Z" />
+
     <path d="M120 380 Q 250 380 380 100 L 340 90 Q 220 320 100 320 Z" />
   </g>
 </svg>
