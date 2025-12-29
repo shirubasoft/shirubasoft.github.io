@@ -1,1 +1,0 @@
-# shirubasoft.github.io
