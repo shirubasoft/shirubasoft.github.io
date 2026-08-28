@@ -115,7 +115,7 @@ footer {
 
 h1 {
   margin: 0;
-  color: var(--paper);
+  color: var(--acid);
   font-size: clamp(3.1rem, 8vw, 6rem);
   font-weight: 800;
   letter-spacing: -0.04em;
@@ -133,8 +133,8 @@ h1 {
 .github-control { position: relative; }
 
 .social-link {
-  --link-accent: var(--acid);
-  --link-shadow: rgba(239, 255, 122, 0.24);
+  --link-accent: var(--coral);
+  --link-shadow: rgba(255, 90, 54, 0.3);
   display: inline-flex;
   gap: 0.65rem;
   align-items: center;
@@ -152,21 +152,6 @@ h1 {
   cursor: pointer;
   transition: color 170ms ease, border-color 170ms ease, background 170ms ease, transform 170ms ease, box-shadow 170ms ease;
   animation: link-in 420ms ease-out both;
-}
-
-.social-link-violet {
-  --link-accent: var(--violet);
-  --link-shadow: rgba(116, 86, 216, 0.34);
-}
-
-.social-link-coral {
-  --link-accent: var(--coral);
-  --link-shadow: rgba(255, 90, 54, 0.3);
-}
-
-.social-link-acid {
-  --link-accent: var(--acid);
-  --link-shadow: rgba(239, 255, 122, 0.24);
 }
 
 .social-nav > :nth-child(2) { animation-delay: 55ms; }

@@ -7,10 +7,10 @@ const githubProfiles = [
 ];
 
 const socialLinks = [
-  { name: 'LinkedIn', url: 'https://linkedin.com/in/reisdan', icon: Linkedin, accent: 'violet' },
-  { name: 'X / Twitter', url: 'https://x.com/dddanielreis', icon: Twitter, accent: 'coral' },
-  { name: 'Blog', url: 'https://blog.danielreis.dev', icon: Feather, accent: 'acid' },
-  { name: 'Email', url: 'mailto:contact@danielreis.dev', icon: Mail, accent: 'coral' },
+  { name: 'LinkedIn', url: 'https://linkedin.com/in/reisdan', icon: Linkedin },
+  { name: 'X / Twitter', url: 'https://x.com/dddanielreis', icon: Twitter },
+  { name: 'Blog', url: 'https://blog.danielreis.dev', icon: Feather },
+  { name: 'Email', url: 'mailto:contact@danielreis.dev', icon: Mail },
 ];
 
 function App() {
@@ -60,7 +60,7 @@ function App() {
         <nav className="social-nav" aria-label="Find ShirubaSoft online">
           <div className="github-control" ref={githubMenu}>
             <button
-              className="social-link social-link-acid"
+              className="social-link"
               type="button"
               ref={githubButton}
               aria-expanded={githubOpen}
@@ -85,9 +85,9 @@ function App() {
             )}
           </div>
 
-          {socialLinks.map(({ name, url, icon: Icon, accent }) => (
+          {socialLinks.map(({ name, url, icon: Icon }) => (
             <a
-              className={`social-link social-link-${accent}`}
+              className="social-link"
               href={url}
               key={name}
               target={name === 'Email' ? undefined : '_blank'}
