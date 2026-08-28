@@ -15,12 +15,16 @@ const socialLinks = [
 
 function App() {
   const [githubOpen, setGithubOpen] = useState(false);
+  const githubButton = useRef(null);
   const githubMenu = useRef(null);
 
   useEffect(() => {
     function closeMenu(event) {
       if (event.type === 'keydown' && event.key === 'Escape') {
-        setGithubOpen(false);
+        if (githubMenu.current?.querySelector('#github-profiles')) {
+          setGithubOpen(false);
+          githubButton.current?.focus();
+        }
         return;
       }
 
@@ -58,6 +62,7 @@ function App() {
             <button
               className="social-link social-link-acid"
               type="button"
+              ref={githubButton}
               aria-expanded={githubOpen}
               aria-controls="github-profiles"
               onClick={() => setGithubOpen((open) => !open)}
