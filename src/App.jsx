@@ -42,7 +42,7 @@ function App() {
       <section className="landing" aria-labelledby="site-title">
         <div className="identity">
           <div className="mark-frame">
-            <img className="brand-mark" src="/favicon.svg" alt="" width="220" height="220" />
+            <img className="brand-mark" src="/favicon.svg?v=2" alt="" width="220" height="220" />
           </div>
 
           <div className="wordmark">
