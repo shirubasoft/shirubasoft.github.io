@@ -100,17 +100,8 @@ a:focus-visible {
 
 .wordmark { min-width: 0; }
 
-.kana,
 footer {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
-}
-
-.kana {
-  margin: 0 0 0.7rem;
-  color: var(--coral);
-  font-size: clamp(0.65rem, 1.4vw, 0.78rem);
-  font-weight: 700;
-  letter-spacing: 0.23em;
 }
 
 h1 {
@@ -226,7 +217,7 @@ footer {
   left: 0;
   z-index: 1;
   color: #877a92;
-  font-size: 0.58rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.08em;
   text-align: center;
 }

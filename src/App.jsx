@@ -52,7 +52,6 @@ function App() {
           </div>
 
           <div className="wordmark">
-            <p className="kana" lang="ja">シルバソフト</p>
             <h1 id="site-title">shirubasoft</h1>
           </div>
         </div>
