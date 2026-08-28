@@ -85,19 +85,24 @@ a:focus-visible {
   align-items: center;
 }
 
-.mark-frame {
-  position: relative;
+.mark-hit-area {
   flex: none;
   width: clamp(150px, 22vw, 220px);
-  filter: drop-shadow(14px 14px 0 rgba(116, 86, 216, 0.28));
-  transform: rotate(-2deg);
-  transition: transform 220ms ease, filter 220ms ease;
-  animation: mark-in 650ms cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
+  animation: mark-in 450ms ease-out both;
 }
 
-.mark-frame:hover {
-  filter: drop-shadow(18px 18px 0 rgba(116, 86, 216, 0.38));
-  transform: translate(-3px, -3px) rotate(-2deg);
+.mark-frame {
+  position: relative;
+  width: 100%;
+  filter: drop-shadow(14px 14px 0 rgba(116, 86, 216, 0.28));
+  transform: translate3d(0, 0, 0) rotate(-2deg);
+  transform-origin: center;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.mark-hit-area:hover .mark-frame {
+  transform: translate3d(0, -3px, 0) rotate(-1deg) scale(1.018);
 }
 
 .brand-mark {
@@ -264,7 +269,6 @@ footer {
 @keyframes mark-in {
   from {
     opacity: 0;
-    transform: translateY(18px) rotate(-5deg) scale(0.9);
   }
 }
 
@@ -286,7 +290,7 @@ footer {
     text-align: center;
   }
 
-  .mark-frame { width: clamp(144px, 42vw, 188px); }
+  .mark-hit-area { width: clamp(144px, 42vw, 188px); }
 
   h1 { font-size: clamp(3rem, 17vw, 5.2rem); }
 

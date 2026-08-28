@@ -41,8 +41,10 @@ function App() {
     <main className="site-shell">
       <section className="landing" aria-labelledby="site-title">
         <div className="identity">
-          <div className="mark-frame">
-            <img className="brand-mark" src="/favicon.svg?v=2" alt="" width="220" height="220" />
+          <div className="mark-hit-area">
+            <div className="mark-frame">
+              <img className="brand-mark" src="/favicon.svg?v=2" alt="" width="220" height="220" />
+            </div>
           </div>
 
           <div className="wordmark">
