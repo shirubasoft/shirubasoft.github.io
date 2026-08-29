@@ -3,37 +3,119 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-      - name: Install dependencies
-        run: bun install
-      - name: Build
+      - name: Check out homepage
+        uses: actions/checkout@v6
+        with:
+          path: homepage
+
+      - name: Check out Prompt-Wrapped production
+        uses: actions/checkout@v6
+        with:
+          repository: shirubasoft/prompt-wrapped
+          ref: main
+          path: prompt-production
+
+      - name: Check out Prompt-Wrapped staging
+        uses: actions/checkout@v6
+        with:
+          repository: shirubasoft/prompt-wrapped
+          ref: staging
+          path: prompt-staging
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            prompt-production/package-lock.json
+            prompt-staging/package-lock.json
+
+      - name: Install homepage dependencies
+        working-directory: homepage
+        run: bun install --frozen-lockfile
+
+      - name: Install Prompt-Wrapped production dependencies
+        working-directory: prompt-production
+        run: npm ci
+
+      - name: Install Prompt-Wrapped staging dependencies
+        working-directory: prompt-staging
+        run: npm ci
+
+      - name: Lint homepage
+        working-directory: homepage
+        run: bun run lint
+
+      - name: Validate Prompt-Wrapped production
+        working-directory: prompt-production
+        run: |
+          npm run lint
+          npm test
+          python3 -m unittest discover -s tests -p 'test_*.py'
+
+      - name: Validate Prompt-Wrapped staging
+        working-directory: prompt-staging
+        run: |
+          npm run lint
+          npm test
+          python3 -m unittest discover -s tests -p 'test_*.py'
+
+      - name: Build homepage
+        working-directory: homepage
         run: bun run build
+
+      - name: Build Prompt-Wrapped production
+        working-directory: prompt-production
+        env:
+          VITE_DEPLOY_ENV: production
+          VITE_PUBLIC_URL: https://shiruba.software/prompt-wrapped
+        run: npm run build
+
+      - name: Build Prompt-Wrapped staging
+        working-directory: prompt-staging
+        env:
+          VITE_DEPLOY_ENV: staging
+          VITE_PUBLIC_URL: https://shiruba.software/prompt-wrapped/staging
+        run: npm run build
+
+      - name: Assemble Pages artifact
+        run: |
+          mkdir -p site
+          cp -R homepage/dist/. site/
+          mkdir -p site/prompt-wrapped
+          cp -R prompt-production/dist/. site/prompt-wrapped/
+          mkdir -p site/prompt-wrapped/staging
+          cp -R prompt-staging/dist/. site/prompt-wrapped/staging/
+
       - name: Verify build output
         run: |
-          if [ ! -f "dist/index.html" ]; then
-            echo "Error: dist/index.html not found"
-            exit 1
-          fi
-          if ! grep -q "assets" dist/index.html; then
-            echo "Warning: Built index.html doesn't contain asset references"
-          fi
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+          test -f site/index.html
+          test -f site/prompt-wrapped/index.html
+          test -f site/prompt-wrapped/staging/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: ./dist
+          path: site
 
   deploy:
     environment:
@@ -44,4 +126,10 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
+
+      - name: Add deployment links to the summary
+        run: |
+          echo "Homepage: https://shiruba.software/" >> "$GITHUB_STEP_SUMMARY"
+          echo "Prompt-Wrapped: https://shiruba.software/prompt-wrapped/" >> "$GITHUB_STEP_SUMMARY"
+          echo "Prompt-Wrapped staging: https://shiruba.software/prompt-wrapped/staging/" >> "$GITHUB_STEP_SUMMARY"
